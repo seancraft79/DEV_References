@@ -1,0 +1,64 @@
+﻿
+
+
+
+
+SQL
+
+-- 데이터베이스 없애고 새로 만들기
+DROP DATABASE my_db; 
+CREATE DATABASE my_db;
+
+
+
+-- EF 자동으로 만들어진 Tables  Drop
+SET foreign_key_checks = 0;
+
+Drop Table 
+aspnetroleclaims,
+
+aspnetroles, 
+aspnetuserclaims,
+
+aspnetuserlogins,
+
+aspnetuserroles,
+
+aspnetusers,
+
+aspnetusertokens,
+
+knumuser;
+
+SET foreign_key_checks = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

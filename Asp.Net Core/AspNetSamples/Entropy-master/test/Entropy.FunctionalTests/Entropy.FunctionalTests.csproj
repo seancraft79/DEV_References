@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp2.2</TargetFrameworks>
+
+    <DefineConstants Condition="'$(GenerateBaselines)'=='true'">$(DefineConstants);GENERATE_BASELINES</DefineConstants>
+    <DefineConstants>$(DefineConstants);__RemoveThisBitTo__GENERATE_BASELINES</DefineConstants>
+
+    <!-- set explicitly because some tests depend on this -->
+    <RootNamespace>Entropy.FunctionalTests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="resources\**\*" />
+    <Content Include="nginx.conf" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\samples\Antiforgery.Angular1\Antiforgery.Angular1.csproj" />
+    <ProjectReference Include="..\..\samples\Antiforgery.MvcWithAuthAndAjax\Antiforgery.MvcWithAuthAndAjax.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.ActionConstraintSample.Web\Mvc.ActionConstraintSample.Web.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.ControllerForMultipleAreasSample\Mvc.ControllerForMultipleAreasSample.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.CustomRazorPageHandlers\Mvc.CustomRazorPageHandlers.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.CustomRouteSample.Web\Mvc.CustomRouteSample.Web.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.CustomRoutingConvention\Mvc.CustomRoutingConvention.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.EmbeddedViewSample.Web\Mvc.EmbeddedViewSample.Web.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.FormatFilterSample.Web\Mvc.FormatFilterSample.Web.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.GenericControllers\Mvc.GenericControllers.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.InlineConstraintSample.Web\Mvc.InlineConstraintSample.Web.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.JsonPatchSample.Web\Mvc.JsonPatchSample.Web.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.RenderViewToString\Mvc.RenderViewToString.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.SubAreaSample.Web\Mvc.SubAreaSample.Web.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.TagHelperSample.Web\Mvc.TagHelperSample.Web.csproj" />
+    <ProjectReference Include="..\..\samples\Mvc.UrlHelperSample.Web\Mvc.UrlHelperSample.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="$(MicrosoftAspNetCorePackageVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="$(MicrosoftAspNetCoreHostingPackageVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IntegrationTesting" Version="$(MicrosoftAspNetCoreServerIntegrationTestingPackageVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="$(MicrosoftAspNetCoreTestHostPackageVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Testing" Version="$(MicrosoftAspNetCoreTestingPackageVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Testing" Version="$(MicrosoftExtensionsLoggingTestingPackageVersion)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNETTestSdkPackageVersion)" />
+    <PackageReference Include="xunit" Version="$(XunitPackageVersion)" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="$(XunitRunnerVisualStudioPackageVersion)" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <ProjectReference Include="..\..\samples\Mvc.LocalizationSample.Web\Mvc.LocalizationSample.Web.csproj" />
+  </ItemGroup>
+
+  <!--
+   Our functional tests utilize DependencyContext.Load which looks next to a dll for a deps.json. For each of our test
+   applications they need to have their corresponding deps.json placed next to their .dll in order to work.
+   -->
+  <Target Name="CopyDepsFiles" AfterTargets="Build" Condition="'$(TargetFramework)'!=''">
+    <ItemGroup>
+      <DepsFilePaths Include="$([System.IO.Path]::ChangeExtension('%(_ResolvedProjectReferencePaths.FullPath)', '.deps.json'))" />
+    </ItemGroup>
+
+    <Copy SourceFiles="%(DepsFilePaths.FullPath)" DestinationFolder="$(OutputPath)" Condition="Exists('%(DepsFilePaths.FullPath)')" />
+  </Target>
+
+</Project>

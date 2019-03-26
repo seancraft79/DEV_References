@@ -1,0 +1,20 @@
+# 모두 삭제
+docker system prune -a
+
+# 컨테이너 bash 연결
+docker exec -it mysql bash
+
+# mysql container 연결
+mysql -uroot -p
+
+# docker image build 
+docker build -t app .
+
+# mysql docker-compse
+docker-compose up -d
+
+docker container run -d -p 3306:3306 seanmysql
+
+    #volumes:
+-   #./data:/docker-entrypoint-initdb.d
+-   #./db:/var/lib/mysql

@@ -1,0 +1,18 @@
+(TS) Argument of type 'typeof CounterComponent' is not assignable to parameter of type 'VueClass'.
+
+TypeScript 관련 이런 에러메세지 나올때
+
+
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	TS2345	(TS) Argument of type 'typeof CounterComponent' is not assignable to parameter of type 'VueClass'.
+  Type 'typeof CounterComponent' is not assignable to type 'new () => Vue'.
+    Type 'CounterComponent' is not assignable to type 'Vue'.
+      Types of property '$options' are incompatible.
+        Type 'ComponentOptions<CounterComponent>' is not assignable to type 'ComponentOptions<Vue>'.
+          Type 'Vue' is not assignable to type 'CounterComponent'.
+            Property 'currentcount' is missing in type 'Vue'.	C:\ASP.NET_PROJECT\KnumWeb\DemantiaWeb (tsconfig or jsconfig project)	C:\ASP.NET_PROJECT\KnumWeb\DemantiaWeb\ClientApp\components\counter\counter.ts	4	Active
+
+
+I was having the same issue and the way I was able to remove that error was to add in my tsconfig.json
+
+"strictFunctionTypes": false

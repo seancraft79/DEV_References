@@ -1,0 +1,13 @@
+
+nuget package ¼³Ä¡
+
+Microsoft.AspNetCore.Mvc.Testing
+Microsoft.NET.Test.Sdk
+Microsoft.NETCore.App
+Microsoft.NETCore.TestHost
+xunit
+xunit.runner.visualstudio
+FluentAssertions
+
+
+Add reference

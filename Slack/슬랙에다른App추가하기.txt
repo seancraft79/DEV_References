@@ -1,0 +1,13 @@
+
+Slack + Google Calendar Intergration
+1. Add Apps - Google Calendar  앱을 추가
+2. 원하는 채널에서 Invite others to this channel 로 Google Calendar 초대
+3. 초대하는 과정에서 기타 설정을 하게됨
+
+
+Slack + BitBucket Intergration
+1. Add Apps - Bitbucket Cloud 추가
+2. 원하는 채널에서 Invite others to this channel
+3. /bitbucket connect <your-repository-url> 실행
+4. Bitbucket 계정의 원하는 Repository 로 가서 
+	Settings -> CHAT NOTIFICATIONS -> 원하는 브랜치 설정

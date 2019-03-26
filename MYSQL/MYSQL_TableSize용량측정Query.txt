@@ -1,0 +1,5 @@
+SELECT COUNT(Question) as QuestionCount, COUNT(Answer) as AnswerCount
+, (sum(char_length(Question)) + sum(char_length(Answer))) as sizeByte
+, (sum(char_length(Question)) + sum(char_length(Answer)))/1024 as sizeKB
+, ((sum(char_length(Question)) + sum(char_length(Answer)))/1024)/1024 as sizeMB
+FROM Contents_VMTests_Knum

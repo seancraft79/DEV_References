@@ -1,0 +1,16 @@
+
+
+I spent the whole day looking for a solution, and singed up here just to share mine.
+
+Yes, probably this error is due to versions difference.
+
+Just download the MySQL 5.7 ZIP Archive from here: 
+
+https://dev.mysql.com/downloads/mysql/ 
+https://dev.mysql.com/downloads/mysql/5.7.html#downloads
+
+and unzip it, then use the mysqldump.exe file from there.
+
+If you are using MySQL Workbench, you will need to set a path to the mysqldump Tool you downloaded by going to Edit -> Preferences -> Administration (from left hand pane).
+
+Hope this helps.

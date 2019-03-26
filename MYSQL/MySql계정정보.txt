@@ -1,0 +1,7 @@
+
+
+
+
+Sean PC Mysql root  비밀번호
+tough2983
+Windows Service name : MySQL80

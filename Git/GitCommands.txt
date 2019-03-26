@@ -1,0 +1,44 @@
+
+
+// -- Remote
+git add remote <URL>
+git remote add origin https://knum@bitbucket.org/knum/knum9test.git
+
+
+// -- Config
+git config - -global user.name “Your name”
+git config - -global user.email “Your email address”
+
+
+// -- Branch
+지역, 원결 모든 브랜치 보기   git branch -a
+원격브랜치ㅣ 보기                git branch -r
+git checkout -b <Branch>
+
+
+// -- Delete local branch
+--delete    git branch -d <Branch>
+--force     git branch -D <Branch>
+
+
+// -- Delete remote branch
+git push origin --delete <Branch>
+
+
+// -- Set tracking
+git branch -u test1 origin/test1
+
+
+// -- Push
+-u (a.k.a.  --set-upstream)
+git push -u origin <Branch>
+git push origin localBranchName:remoteBranchName
+
+
+// -- Pull
+git pull origin <Branch>
+
+
+// -- Merge
+git merge <Branch>
+git merge --no-commit <Branch>

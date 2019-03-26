@@ -1,0 +1,13 @@
+Windows Registry Editor Version 5.00
+  
+[HKEY_CLASSES_ROOT\Excel.Sheet.8\shell\Open\command]
+@="\"C:\\Program Files\\Microsoft Office\\Office14\\EXCEL.EXE\" /m \"%1\""
+"command"=-
+  
+[HKEY_CLASSES_ROOT\Excel.Sheet.12\shell\Open\command]
+@="\"C:\\Program Files\\Microsoft Office\\Office14\\EXCEL.EXE\" /m \"%1\""
+"command"=-
+  
+[-HKEY_CLASSES_ROOT\Excel.Sheet.8\shell\Open\ddeexec]
+  
+[-HKEY_CLASSES_ROOT\Excel.Sheet.12\shell\Open\ddeexec]

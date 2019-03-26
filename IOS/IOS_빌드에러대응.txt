@@ -1,0 +1,21 @@
+
+
+
+Archive 되지 않는 문제
+MapFileParser.sh Permission 문제 -> 2가지 변수를 수정해서 성공 : 
+1.Dropbox 에 있던 파일들을 다른 폴더()로 이동했음
+2. 윈도우 ProgramFile 의 Unity 폴더(C:\Program Files\Unity\Editor\Data\Tools\MapFileParser) MapFileParser.sh 파일의 확장자를 때버리고 
+ios 빌드
+
+
+
+Xcode 에서 iPhone6 실행 되지 않는 문제
+Xcode 버전에 따른 ios debugger 확인 => Xcode.app 우클릭 -> Show Package Content
+폴더경로 : Contents -> Developter -> Platforms -> iPhoneOS.platform -> DeviceSupport
+폴더에서 ios 버전에 맞는 디버거폴더가 있는지 확인요망
+https://stackoverflow.com/questions/41220525/model-is-running-ios-10-2-14c92-which-may-not-be-supported-by-this-version-of/43098731#43098731
+
+
+
+
+

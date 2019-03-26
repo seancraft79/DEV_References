@@ -1,0 +1,29 @@
+Mysql 설치후 Mysql Workbench 연결 안될때
+
+
+cd "C:\Program Files\MySQL\MySQL Server 8.0\bin"
+
+C:\Program Files\MySQL\MySQL Server 8.0\bin> mysql -u root -p
+Enter password: *********
+
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'newrootpassword';
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> exit
+
+
+
+
+
+
+
+Alternatively, you can change the my.ini configuration as the following:
+(C:\ProgramData\MySQL\MySQL Server 8.0\my.ini)
+
+
+
+[mysqld]
+
+default_authentication_plugin=mysql_native_password
+
+Restart the MySQL Server and open the Workbench again.

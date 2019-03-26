@@ -1,0 +1,22 @@
+
+
+
+
+Vue 프로젝트 생성후 Controller 만들려고 
+
+프로젝트에서 Add -> Controller 했는데 
+
+.net core there was an error running the selected code generator
+
+오류
+
+Microsoft.AspNetCore.All 을 업그레이드 해야됨
+
+그걸할려면 
+
+Microsoft.NETCore.App 을 업그레이드 해야 하는데 그건 프로젝트 우클릭 -> Properties -> Application 에서 드롭다운 선택하면 됨
+
+그리고 난 후 Nuget package 에서 Microsoft.NETCore.App 을 업그레이드 하려는데 Microsoft.CodeAnalysis.Common 을 업그레이드 해야 된다는 에러 메세지 출력되서 그거 업그레이드 함
+
+그러고 난 후 Microsoft.AspNetCore.All 업그레이드
+

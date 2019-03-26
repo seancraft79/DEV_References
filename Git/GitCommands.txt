@@ -1,4 +1,4 @@
-
+﻿
 
 ### Remote
 git add remote <URL>
@@ -6,6 +6,10 @@ git remote add origin https://knum@bitbucket.org/knum/knum9test.git
 
 # Show remote url
 git remote -v
+
+
+### Git credential helper
+git config --global credential.helper cache
 
 
 ### Config

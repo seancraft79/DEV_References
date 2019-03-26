@@ -1,39 +1,50 @@
-﻿
+﻿# SQL 명령어
+
+### 테이블 스키마 보기
+DESC TableName;
 
 
+### Create Database
+CREATE DATABASE IF NOT EXISTS seandb;
+USE seandb;
 
 
-SQL
-
--- 데이터베이스 없애고 새로 만들기
-DROP DATABASE my_db; 
-CREATE DATABASE my_db;
-
-
-
--- EF 자동으로 만들어진 Tables  Drop
-SET foreign_key_checks = 0;
-
-Drop Table 
-aspnetroleclaims,
-
-aspnetroles, 
-aspnetuserclaims,
-
-aspnetuserlogins,
-
-aspnetuserroles,
-
-aspnetusers,
-
-aspnetusertokens,
-
-knumuser;
-
-SET foreign_key_checks = 1;
+### Create Table
+DROP TABLE IF EXISTS `Users`;
+CREATE TABLE `Users` (
+  `Uid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `Email` varchar(256) NOT NULL,
+  PRIMARY KEY (`Uid`),
+  UNIQUE KEY `Email` (`Email`)
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
 
+### Grant user
+GRANT ALL PRIVILEGES ON dbname.* TO 'username'@'localhost' IDENTIFIED BY 'password';
+FLUSH PRIVILEGES;
 
+
+### DB 백업
+mysqldump   -u 아이디    -p 패스워드    데이터베이스명 > 저장할 파일명
+
+전체백업
+mysqldump   -u root       -p ****          –all-databases > 파일명.sql
+
+특정 테이블만 덤프
+mysqldump -u root -p DB명 테이블명 > 파일명.sql
+mysqldump -u root -p -B DB명 –tables 테이블명1 테이블명2 테이블명3 > 파일명.sql
+
+테이블 구조만 백업
+mysqldump -u root -p –no-data DB명 > 파일명.sql
+
+
+### 시간
+다음과 같이 현재시간과 한시간 후의 시간의 차이값을 각각 단위값을 HOUR, MINUTE, SECOND 
+구분값을 주게되면, 각각 시간단위, 분단위, 초단위 시간차 값을 반환하게 됩니다.
+
+SELECT TIMESTAMPDIFF(HOUR, now(), DATE_ADD(now(),INTERVAL 1 HOUR)) dd ==> 1시간
+SELECT TIMESTAMPDIFF(MINUTE, now(), DATE_ADD(now(),INTERVAL 1 HOUR)) dd ==> 60분
+SELECT TIMESTAMPDIFF(SECOND, now(), DATE_ADD(now(),INTERVAL 1 HOUR)) dd ==> 3600초
 
 
 

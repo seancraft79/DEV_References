@@ -9,7 +9,6 @@ git remote -v
 
 
 ### Git credential helper
-git config --global credential.helper cache
 git config --global credential.helper wincred
 
 

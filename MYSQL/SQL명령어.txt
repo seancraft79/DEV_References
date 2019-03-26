@@ -2,6 +2,10 @@
 
 ### 테이블 스키마 보기
 DESC TableName;
+EXPLAIN TableName;
+
+### 테이블 생성 쿼리 보기
+SHOW CREATE TABLE TableName;
 
 
 ### Create Database

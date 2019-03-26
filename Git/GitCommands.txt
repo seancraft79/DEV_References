@@ -18,7 +18,7 @@ git config - -global user.email “Your email address”
 
 
 ### Branch
-지역, 원결 모든 브랜치 보기   git branch -a
+지역, 원격 모든 브랜치 보기   git branch -a
 원격브랜치ㅣ 보기                git branch -r
 git checkout -b <Branch>
 

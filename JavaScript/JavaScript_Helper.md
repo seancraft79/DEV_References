@@ -1,7 +1,9 @@
 
-//### JavaScript Help Codes ###
+# JavaScript Help Codes
 
-// Hide Show Div
+### Hide Show Div
+
+```
 function myFunction() {
   var x = document.getElementById("myDIV");
   if (x.style.display === "none") {
@@ -13,3 +15,4 @@ function myFunction() {
 
 // style.display -> none, block
 // style.visibility -> hidden, visible
+```

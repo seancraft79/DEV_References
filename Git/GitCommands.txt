@@ -8,6 +8,12 @@ git remote add origin https://knum@bitbucket.org/knum/knum9test.git
 git remote -v
 
 
+### SSH
+ssh-keygen
+eval 'ssh-agent'
+ssh-add privatekey
+
+
 ### Git credential helper
 git config --global credential.helper wincred
 

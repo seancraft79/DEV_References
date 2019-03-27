@@ -1,17 +1,24 @@
-﻿
+﻿# Git 명령어
 
 ### Remote
 git add remote <URL>
 git remote add origin https://knum@bitbucket.org/knum/knum9test.git
 
-# Show remote url
+### Show remote url
 git remote -v
 
 
 ### SSH
 ssh-keygen
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+### Start the ssh-agent in the background
 eval 'ssh-agent'
+eval $(ssh-agent -s)
+
+### Add your SSH private key to the ssh-agent
 ssh-add privatekey
+ssh-add ~/.ssh/keyname
 
 
 ### Git credential helper

@@ -1,0 +1,12 @@
+# github push error with https
+
+remote Permission to use/repository denied to nowuser.
+fatal: ...
+
+
+자격증명관리자 실행 -> 필요한 계정 등록
+
+일반자격증명 에 
+git:https://github.com 
+계정
+비밀번호 등록

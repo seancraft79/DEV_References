@@ -18,6 +18,10 @@ ssh-add privatekey
 git config --global credential.helper wincred
 
 
+### Config 확인
+git config --list
+
+
 ### Config
 git config - -global user.name “Your name”
 git config - -global user.email “Your email address”

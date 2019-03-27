@@ -23,10 +23,18 @@ git config - -global user.name “Your name”
 git config - -global user.email “Your email address”
 
 
-### Branch
+### Branch 보기
 지역, 원격 모든 브랜치 보기   git branch -a
 원격브랜치ㅣ 보기                git branch -r
+
+
+### Branch 만들기
 git checkout -b <Branch>
+
+
+### Branch Merge
+git merge <Branch>
+git merge --no-commit <Branch>
 
 
 ### Delete local branch
@@ -52,6 +60,4 @@ git push origin localBranchName:remoteBranchName
 git pull origin <Branch>
 
 
-### Merge
-git merge <Branch>
-git merge --no-commit <Branch>
+

@@ -23,7 +23,7 @@ function myFunction() {
 ```
 	var xhr = new XMLHttpRequest();
 
-	xhr.open('GET', '/Purchase/CreateOrder?amount=' + amount);
+	xhr.open('GET', '/Controller/Action');
 
 	xhr.send();
 

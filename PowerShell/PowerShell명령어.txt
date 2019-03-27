@@ -1,0 +1,7 @@
+
+# PowerShell 명령어
+
+### 80 포트 사용하고 있는 service 보기
+```
+Get-NetTCPConnection -LocalPort 80 | Format-List
+```

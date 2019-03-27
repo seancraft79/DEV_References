@@ -13,6 +13,10 @@ docker build -t app .
 # mysql docker-compse
 docker-compose up -d
 
+### docker-compose override 파일을 이용해서 테스트와 릴리즈용을 분리해서 실행
+docker-compose -f docker-compose.yml -f docker-compose.debug.yml up --build -d
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
+
 docker container run -d -p 3306:3306 seanmysql
 
     #volumes:

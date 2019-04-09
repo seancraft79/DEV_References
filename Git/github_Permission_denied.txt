@@ -9,4 +9,8 @@ fatal: ...
 일반자격증명 에 
 git:https://github.com 
 계정
-비밀번호 등록
+비밀번호 등록하여 해결하는 경우도 있고
+
+or
+
+Windows자격증명 -> 일반자격증명에서 github 관련 모두 'Remove' 하고 다시 push 하면서 자격증명이 등록되게 하는 방법도 있음

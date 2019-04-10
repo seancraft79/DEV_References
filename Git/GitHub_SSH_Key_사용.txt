@@ -1,0 +1,8 @@
+
+# Git SSH key 사용
+
+### Generate ssh key in gitbash
+ssh-keygen
+
+key를 만들면 user/.ssh 폴더가 만들어지고 user/.ssh/id_rsa.pub 파일의 키를 복사해서 github 에 등록하면 끝
+github key 등록 : repository 말고 홈에서 settings -> SSH and GPG Keys 에서 등록

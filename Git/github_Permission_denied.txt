@@ -4,11 +4,11 @@ remote Permission to use/repository denied to nowuser.
 fatal: ...
 
 
-자격증명관리자 실행 -> 필요한 계정 등록
+자격증명관리자 실행 -> 윈도우 자격증명 ->  필요한 계정 등록
 
 일반자격증명 에 
 git:https://github.com 
-계정
+사용자(seancraft79)
 비밀번호 등록하여 해결하는 경우도 있고
 
 or

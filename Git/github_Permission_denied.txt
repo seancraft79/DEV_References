@@ -8,7 +8,7 @@ fatal: ...
 
 일반자격증명 에 
 git:https://github.com 
-사용자(seancraft79)
+사용자(seancraft79, shleemr)
 비밀번호 등록하여 해결하는 경우도 있고
 
 or

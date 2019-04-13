@@ -49,7 +49,20 @@ sudo systemctl status docker
 docker-compose -v
 ```
 
-##### 설치
+##### docker-compose 설치
 ```
 apt install docker-compose
+```
+
+
+# Install Git
+```
+sudo apt update
+
+sudo apt install git
+```
+
+##### check git version
+```
+git --version
 ```

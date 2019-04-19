@@ -16,3 +16,10 @@ dialog.show();
     <solid android:color="#FFFFFF"/>
     <corners android:radius="10dp"/>
 </shape>
+
+
+### Using Vector image
+Drawable -> 우클릭 -> New -> Vector Asset -> Local 에서 다운받은 벡터 이미지 선택 -> Finish
+build.gradle 의 defaultConfig 에 vectorDrawables.useSupportLibrary = true 추가
+** View.setBackground 로 바꿔야 되는 경우 원래 View 에서는 background 를 지정하지 말아야 코드에서 교체할 경우 잘 보임
+색깔 바꿀경우 xml 파일에서 바꾸면 됨

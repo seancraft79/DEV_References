@@ -78,4 +78,7 @@ git push origin localBranchName:remoteBranchName
 git pull origin <Branch>
 
 
+### Clone by branch name
+git clone -b <branch_name> --single-branch <저장소 URL>
+
 

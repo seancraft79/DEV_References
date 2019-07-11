@@ -1,6 +1,6 @@
-# GitBook CLI ÀÌ¿ë ½ÃÀÛÇÏ±â
+ï»¿# GitBook CLI ì´ìš© ì‹œì‘í•˜ê¸°
 
-##### Node.js ¹öÀüÈ®ÀÎ
+##### Node.js ë²„ì „í™•ì¸
 [Node.js](https://nodejs.org)
 ```
 $ node -v
@@ -12,12 +12,12 @@ $ npm install gitbook-cli -g
 $ gitbook install
 ```
 
-##### GitBook ¸¸µé±â
+##### GitBook ë§Œë“¤ê¸°
 ```
 $ gitbook init ./<BookName>
 ```
 
-##### Local È¯°æ(http://localhost:4000)¿¡¼­ È£½ºÆÃ
+##### Local í™˜ê²½(http://localhost:4000)ì—ì„œ í˜¸ìŠ¤íŒ…
 ```
 $ gitbook build
 $ gitbook serve

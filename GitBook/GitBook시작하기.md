@@ -17,8 +17,8 @@ $ gitbook install
 $ gitbook init ./<BookName>
 ```
 
-##### Local 환경(http://localhost:4000)에서 호스팅
+##### Local 환경에서 호스팅
 ```
 $ gitbook build
-$ gitbook serve
+$ gitbook serve   // http://localhost:4000 에서 호스팅
 ```

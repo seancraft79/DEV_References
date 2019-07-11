@@ -1,6 +1,7 @@
 # GitBook CLI 이용 시작하기
 
 ##### Node.js 버전확인
+[Node.js](https://nodejs.org)
 ```
 $ node -v
 ```

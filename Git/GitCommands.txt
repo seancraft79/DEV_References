@@ -82,3 +82,6 @@ git pull origin <Branch>
 git clone -b <branch_name> --single-branch <저장소 URL>
 
 
+### Unstage all
+git reset
+

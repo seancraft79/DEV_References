@@ -3,14 +3,12 @@
 
 
 #### github/gitignore
-```
-https://github.com/github/gitignore
-```
+[github/gitignore](https://github.com/github/gitignore)
 
 
 
 #### .gitignore 파일 규칙
-- # 은 주석의 역할
+- #은 주석의 역할
 - 표준 glob 패턴을 사용
 - / 를 사용하면 규칙이 프로젝트 전체에 적용되지 않음
 - / 로 끝나는 것은 폴더로 인식

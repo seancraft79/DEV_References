@@ -1,0 +1,10 @@
+
+
+터미널에서 Metarobotics 프로젝트를 clone 하면 되질 않음
+
+* Metarobotics 프로젝트는 SourceTree 에서 clone 하고 push
+
+* seancraft79 프로젝트는 터미널에서 clone, push
+	안되면 
+	git config credential.username 'seancraft79'
+	해서 username 을 바꿔줘야 됨

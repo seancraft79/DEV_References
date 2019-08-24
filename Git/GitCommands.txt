@@ -28,6 +28,10 @@ ssh-add privatekey
 ssh-add ~/.ssh/keyname
 
 
+### Git config credential
+git config credential.username 'username'
+
+
 ### Git credential helper
 git config --global credential.helper wincred
 

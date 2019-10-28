@@ -41,8 +41,8 @@ git config --list
 
 
 ### Config
-git config - -global user.name “Your name”
-git config - -global user.email “Your email address”
+git config --global user.name “Your name”
+git config --global user.email “Your email address”
 
 
 ### Branch 보기
@@ -89,3 +89,7 @@ git clone -b <branch_name> --single-branch <저장소 URL>
 ### Unstage all
 git reset
 
+### ISSUE 에러
+remote: Permission to seancraft79/DEV_Snippets.git denied to shleemr.
+-> git config credential.username 'seancraft79'
+-> 으로 적당한 username 넣어줘야 됨

@@ -70,10 +70,9 @@
 
 
 
-
 [Android KitKat](https://developer.android.com/about/versions/kitkat)
 
 
-<br/>
-<br/>
+
+<br><br>  
 [ANDROID SDK API LEVELS](https://developer.android.com/guide/topics/manifest/uses-sdk-element#ApiLevels)

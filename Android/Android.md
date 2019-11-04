@@ -20,6 +20,6 @@ android {
 
 [Samples for Android Architecture Components](https://github.com/android/architecture-components-samples)  
 
-[Make android app with AAC](www.udacity.com/course/ud9012)  
-[Android Architecture Components](d.android.com/arch)  
-[Android Jetpack Community](d.android.com/jetpack/community)
+[Developing Android Apps with Kotlin](https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012)  
+[Android Architecture Components](https://developer.android.com/topic/libraries/architecture)  
+[Android Jetpack Community](https://developer.android.com/jetpack/docs/feedback)

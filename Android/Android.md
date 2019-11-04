@@ -15,5 +15,11 @@ android {
 
 
 
-### Change android package name 
-https://stackoverflow.com/a/29092698
+### Links
+[Google Codelab](https://codelabs.developers.google.com/)  
+
+[Samples for Android Architecture Components](https://github.com/android/architecture-components-samples)  
+
+[Make android app with AAC](www.udacity.com/course/ud9012)  
+[Android Architecture Components](d.android.com/arch)  
+[Android Jetpack Community](d.android.com/jetpack/community)

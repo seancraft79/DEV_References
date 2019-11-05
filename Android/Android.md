@@ -23,6 +23,9 @@ android {
 [Jetpack](https://developer.android.com/jetpack/)  
 [Android Jetpack Community](https://developer.android.com/jetpack/docs/feedback)  
 
+[OkHttp](https://github.com/square/okhttp)  
+[Retrofit](https://github.com/square/retrofit)  
+
 [ReactiveX/RxJava](https://github.com/ReactiveX/RxJava)  
 
 ### [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/)  
@@ -40,3 +43,12 @@ android {
 [Paging Sample](https://github.com/android/architecture-components-samples/tree/master/PagingSample)  
 
 [WorkManager Sample](https://github.com/android/architecture-components-samples/tree/master/WorkManagerSample)  
+
+[Google I/O Android App Sample](https://github.com/google/iosched)  
+[Android Sunflower (alpha)](https://github.com/android/sunflower)  
+
+### More Samples
+[Advanced Android Samples](https://github.com/google-developer-training/android-advanced)  
+[daimajia/AndroidViewAnimations](https://github.com/daimajia/AndroidViewAnimations)  
+[wasabeef/awesome-android-ui](https://github.com/wasabeef/awesome-android-ui/tree/master/pages)  
+

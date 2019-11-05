@@ -22,4 +22,6 @@ android {
 
 [Developing Android Apps with Kotlin](https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012)  
 [Android Architecture Components](https://developer.android.com/topic/libraries/architecture)  
+
+[Jetpack](https://developer.android.com/jetpack/)  
 [Android Jetpack Community](https://developer.android.com/jetpack/docs/feedback)

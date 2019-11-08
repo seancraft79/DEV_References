@@ -86,6 +86,23 @@
 		// notify item added by position
 		notifyItemInserted(position);
 	    }
+
+	    static class AlertViewHolder extends RecyclerView.ViewHolder {
+
+		ImageView icon;
+		TextView alertType, alertMessage;
+		RelativeLayout viewBackground, viewForeground;
+
+		public AlertViewHolder(@NonNull View itemView) {
+		    super(itemView);
+
+		    icon = itemView.findViewById(R.id.alert_icon);
+		    alertType = itemView.findViewById(R.id.log_type);
+		    alertMessage = itemView.findViewById(R.id.log_message);
+		    viewBackground = itemView.findViewById(R.id.view_background);
+		    viewForeground = itemView.findViewById(R.id.view_foreground);
+		}
+	    }
 	}
 ```
 

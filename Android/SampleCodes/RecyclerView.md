@@ -184,22 +184,22 @@
 
 ### Init recyclerview
 ```
-	 alertItemList = new ArrayList<>();
-		mAlertAdapter = new AlertListAdapter(context, alertItemList);
+		List<Item> itemList = new ArrayList<>();
+		mAlertAdapter = new AlertListAdapter(context, itemList);
 
 		RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
 		RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
 		recyclerView.setLayoutManager(mLayoutManager);
 		recyclerView.setItemAnimator(new DefaultItemAnimator());
-	//        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+		// recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 		recyclerView.setAdapter(mAlertAdapter);
 
 		// add pass ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT as param
 		ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
 		new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
-		this.alertItemList.clear();
+		itemList.clear();
 
 		// refreshing recycler view
 		mAlertAdapter.notifyDataSetChanged();

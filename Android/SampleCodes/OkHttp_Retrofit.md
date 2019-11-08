@@ -1,7 +1,13 @@
 
 # OkHttp
 
-### [OkHttp](https://square.github.io/okhttp/)
+### [OkHttp](https://square.github.io/okhttp/)  
+
+### Add dependency
+[release](https://square.github.io/okhttp/#releases)  
+```
+implementation("com.squareup.okhttp3:okhttp:4.2.1")
+```
 
 ### Get
 ```
@@ -50,12 +56,14 @@ public void post(String requestURL, String jsonMessage) {
 ```
   
 # Retrofit
-### [Retrofit](https://square.github.io/retrofit/)
+### [Retrofit](https://square.github.io/retrofit/)  
+
+[github repo](https://github.com/square/retrofit)  
 
 ### Add dependency
 ```
     // Retrofit
-    def retrofit_version = ""
+    def retrofit_version = "2.6.2"
 
     implementation "com.squareup.retrofit2:retrofit:${retrofit_version}"
     implementation "com.squareup.retrofit2:converter-gson:${retrofit_version}"

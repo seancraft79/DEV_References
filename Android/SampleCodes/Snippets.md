@@ -45,10 +45,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    or
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 ```
 
-### SharedPrefe
+### SharedPreferences
 ```
 	public static final String PREF_FILE = "mypref";
 
@@ -60,4 +67,22 @@ android {
 	SharedPreferences.Editor editor = getPrefEdit(context);
 	editor.putBoolean(key, value);
 	editor.commit();
+```
+
+### Use Vector drawable
+```
+	defaultConfig {
+		...
+
+		vectorDrawables {
+		    useSupportLibrary = true
+		}
+    }
+```
+
+### Data Binding
+```
+	dataBinding {
+	   enabled = true
+	}
 ```

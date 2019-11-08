@@ -17,6 +17,7 @@
 
 [Android Architecture Blueprints](https://github.com/android/architecture-samples)  
 
+[Android Architecture Components Samples](https://github.com/android/architecture-components-samples)  
 [Android Architecture Components Basic Sample(Room + ViewModel + LiveData)](https://github.com/android/architecture-components-samples/tree/master/BasicSample)  
 [ViewModel & DataBinding Sample](https://github.com/android/databinding-samples)  
 [Room & RxJava (Kotlin) Sample](https://github.com/android/architecture-components-samples/tree/master/BasicRxJavaSampleKotlin)  

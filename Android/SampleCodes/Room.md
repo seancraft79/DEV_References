@@ -132,7 +132,9 @@ public class DatabaseClient {
         this.mCtx = mCtx;
 
         //creating the app database with Room database builder
-        appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "appdata").build();
+        appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "appdata")
+		// .allowMainThreadQueries()  // Main thread 에서도 db 조작 가능
+		.build();
     }
 
     public static DatabaseClient getInstance(Context mCtx) {

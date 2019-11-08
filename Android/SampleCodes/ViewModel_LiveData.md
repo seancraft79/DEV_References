@@ -1,180 +1,227 @@
 
 # ViewModel + LiveData
 
-### gradle
-```
-	defaultConfig {
-		...
+[ViewModel overview](https://developer.android.com/topic/libraries/architecture/viewmodel#java)  
 
-		vectorDrawables {
-		    useSupportLibrary = true
-		}
+### Add dependency
+```
+def lifecycle_version = "2.1.0"
+
+// ViewModel and LiveData
+implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+```
+
+### Simple way of using LiveData
+```
+// 1. Dao 의 getAll 을 LiveData<> 로 감싼다
+
+// 2. 사용
+db.dataDao().getAll().observe(this, datas -> {
+	// Do somethins with datas ...
+
+});
+
+```
+
+
+### ViewModel
+```
+public class MyViewModel extends ViewModel {
+    private MutableLiveData<List<User>> users;
+    public LiveData<List<User>> getUsers() {
+        if (users == null) {
+            users = new MutableLiveData<List<User>>();
+            loadUsers();
+        }
+        return users;
     }
+
+    private void loadUsers() {
+        // Do an asynchronous operation to fetch users.
+    }
+}
+```
+
+### Access ViewModel in Activity
+```
+public class MyActivity extends AppCompatActivity {
+    public void onCreate(Bundle savedInstanceState) {
+        // Create a ViewModel the first time the system calls an activity's onCreate() method.
+        // Re-created activities receive the same MyViewModel instance created by the first activity.
+
+        MyViewModel model = ViewModelProviders.of(this).get(MyViewModel.class);
+        model.getUsers().observe(this, users -> {
+            // update UI
+        });
+    }
+}
+```
+
+### Share data between fragments
+```
+public class SharedViewModel extends ViewModel {
+    private final MutableLiveData<Item> selected = new MutableLiveData<Item>();
+
+    public void select(Item item) {
+        selected.setValue(item);
+    }
+
+    public LiveData<Item> getSelected() {
+        return selected;
+    }
+}
+
+
+public class MasterFragment extends Fragment {
+    private SharedViewModel model;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        itemSelector.setOnClickListener(item -> {
+            model.select(item);
+        });
+    }
+}
+
+public class DetailFragment extends Fragment {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SharedViewModel model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model.getSelected().observe(this, { item ->
+           // Update the UI.
+        });
+    }
+}
+```
+
+# DataBinding
+
+[DataBinding](https://developer.android.com/topic/libraries/data-binding/start)  
+
+### Add depencency
+```
+android {
+    ...
+    dataBinding {
+        enabled = true
+    }
+}
 ```
 
 ### Layout
 ```
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-        <variable
-            name="isLoading"
-            type="boolean" />
-    </data>
-
-    ...
-
-	<TextView
-            ...
-            app:visibleGone="@{isLoading}" />
-
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+   <data>
+       <variable name="user" type="com.example.User"/>
+   </data>
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <TextView android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@{user.firstName}"/>
+       <TextView android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@{user.lastName}"/>
+   </LinearLayout>
 </layout>
 ```
 
-### Fragment
+### POJO
 ```
-package com.example.android.persistence.ui;
-
-import android.os.Bundle;
-import android.text.Editable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
-import com.example.android.persistence.R;
-import com.example.android.persistence.databinding.ListFragmentBinding;
-import com.example.android.persistence.db.entity.ProductEntity;
-import com.example.android.persistence.model.Product;
-import com.example.android.persistence.viewmodel.ProductListViewModel;
-
-import java.util.List;
-
-public class ProductListFragment extends Fragment {
-
-    public static final String TAG = "ProductListFragment";
-
-    private ProductAdapter mProductAdapter;
-
-    private ListFragmentBinding mBinding;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.list_fragment, container, false);
-
-        mProductAdapter = new ProductAdapter(mProductClickCallback);
-        mBinding.productsList.setAdapter(mProductAdapter);
-
-        return mBinding.getRoot();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        final ProductListViewModel viewModel =
-                new ViewModelProvider(this).get(ProductListViewModel.class);
-
-        mBinding.productsSearchBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Editable query = mBinding.productsSearchBox.getText();
-                if (query == null || query.toString().isEmpty()) {
-                    subscribeUi(viewModel.getProducts());
-                } else {
-                    subscribeUi(viewModel.searchProducts("*" + query + "*"));
-                }
-            }
-        });
-
-        subscribeUi(viewModel.getProducts());
-    }
-
-    private void subscribeUi(LiveData<List<ProductEntity>> liveData) {
-        // Update the list when the data changes
-        liveData.observe(this, new Observer<List<ProductEntity>>() {
-            @Override
-            public void onChanged(@Nullable List<ProductEntity> myProducts) {
-                if (myProducts != null) {
-                    mBinding.setIsLoading(false);
-                    mProductAdapter.setProductList(myProducts);
-                } else {
-                    mBinding.setIsLoading(true);
-                }
-                // espresso does not know how to wait for data binding's loop so we execute changes
-                // sync.
-                mBinding.executePendingBindings();
-            }
-        });
-    }
-
-    private final ProductClickCallback mProductClickCallback = new ProductClickCallback() {
-        @Override
-        public void onClick(Product product) {
-
-            if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                ((MainActivity) getActivity()).show(product);
-            }
-        }
-    };
+public class User {
+  private final String firstName;
+  private final String lastName;
+  public User(String firstName, String lastName) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+  }
+  public String getFirstName() {
+      return this.firstName;
+  }
+  public String getLastName() {
+      return this.lastName;
+  }
 }
 ```
 
-### VieweModel
+### Binding data
 ```
-package com.example.android.persistence.viewmodel;
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+   super.onCreate(savedInstanceState);
 
-import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
-import com.example.android.persistence.BasicApp;
-import com.example.android.persistence.DataRepository;
-import com.example.android.persistence.db.entity.ProductEntity;
-import java.util.List;
+   // A binding class is generated for each layout file. By default, the name of the class is based on the name of the layout file, 
+   // converting it to Pascal case and adding the Binding suffix to it.
+   ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-public class ProductListViewModel extends AndroidViewModel {
+   User user = new User("Test", "User");
+   binding.setUser(user);
+}
+```
 
-    private final DataRepository mRepository;
+### [Use LiveData to notify the UI about data changes](https://developer.android.com/topic/libraries/data-binding/architecture#livedata)  
+```
+class ScheduleViewModel extends ViewModel {
+    LiveData username;
 
-    // MediatorLiveData can observe other LiveData objects and react on their emissions.
-    private final MediatorLiveData<List<ProductEntity>> mObservableProducts;
-
-    public ProductListViewModel(Application application) {
-        super(application);
-
-        mObservableProducts = new MediatorLiveData<>();
-        // set by default null, until we get data from the database.
-        mObservableProducts.setValue(null);
-
-        mRepository = ((BasicApp) application).getRepository();
-        LiveData<List<ProductEntity>> products = mRepository.getProducts();
-
-        // observe the changes of the products from the database and forward them
-        mObservableProducts.addSource(products, mObservableProducts::setValue);
-    }
-
-    /**
-     * Expose the LiveData Products query so the UI can observe it.
-     */
-    public LiveData<List<ProductEntity>> getProducts() {
-        return mObservableProducts;
-    }
-
-    public LiveData<List<ProductEntity>> searchProducts(String query) {
-        return mRepository.searchProducts(query);
+    public ScheduleViewModel() {
+        String result = Repository.userName;
+        userName = Transformations.map(result, result -> result.value);
     }
 }
 
+class ViewModelActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // Obtain the ViewModel component.
+        UserModel userModel = ViewModelProviders.of(getActivity())
+                                                  .get(UserModel.class);
+
+	// Inflate view and obtain an instance of the binding class.
+        UserBinding binding = DataBindingUtil.setContentView(this, R.layout.user);
+
+        // To use LiveData : Specify the current activity as the lifecycle owner.
+        binding.setLifecycleOwner(this);
+
+	// Assign the component to a property in the binding class.
+        binding.viewmodel = userModel;
+    }
+}
+```
+
+### Use in Layout
+```
+<CheckBox
+    android:id="@+id/rememberMeCheckBox"
+    android:checked="@{viewmodel.rememberMe}"
+    android:onCheckedChanged="@{() -> viewmodel.rememberMeChanged()}" />
+```
+
+
+# ViewBinding
+
+[ViewBinding](https://developer.android.com/topic/libraries/view-binding)  
+
+### Note: View binding is available in Android Studio 3.6 Canary 11+.
+
+### Add depencency
+```
+android {
+    ...
+    viewBinding {
+        enabled = true
+    }
+}
+```
+
+### Ignore generating binding class
+```
+<LinearLayout
+        ...
+        tools:viewBindingIgnore="true" >
+    ...
+</LinearLayout>
 ```

@@ -68,6 +68,15 @@ git merge --no-commit <Branch>
 git push origin --delete <Branch>
 
 
+### Reset commit to REF(commit reference or SHA)
+git reset --hard REF
+
+### Reset just last commit
+git reset --hard HEAD^
+
+### Reset just last 2 commits
+git reset --hard HEAD~2
+
 ### Set tracking
 git branch -u test1 origin/test1
 

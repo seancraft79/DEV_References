@@ -8,6 +8,9 @@ Shift + F9	Control + D
 ##### 클래스 찾기
 Control + N	Command + O
 
+##### Method 찾기
+Control + F12    Command + F12
+
 ##### 최근에 연 파일 팝업
 Control + E	Command + E
 

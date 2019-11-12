@@ -41,3 +41,5 @@
 ### Others
 [Google play billing](https://developer.android.com/google/play/billing/billing_library_overview?hl=ko)  
 
+[ACRA Wiki(Crash report)](https://github.com/ACRA/acra/wiki)
+[WatchDog(Crash report)](https://github.com/SalomonBrys/ANR-WatchDog#why-it-exists)

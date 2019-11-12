@@ -17,6 +17,9 @@ Control + Shift + F
 ##### 최근에 연 파일 팝업
 Control + E	Command + E
 
+##### 마지막 편집위치로 이동
+Control + Shift + 백스페이스
+
 ##### 파일 구조 팝업 열기
 Control + F12	Command + F12
 

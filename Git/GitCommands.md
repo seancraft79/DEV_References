@@ -98,7 +98,51 @@ git clone -b <branch_name> --single-branch <저장소 URL>
 ### Unstage all
 git reset
 
-### ISSUE 에러
+
+### submodule 추가
+1. parent, module 둘다 git repository 여야 됨
+2. module 폴더 에서 일반적으로 git clone
+3. add submodule
+```
+	git submodule add <repository> <destination folder>
+```
+
+### submodule 클론
+git submodule update --init --recursive
+git clone --recursive <project url>
+
+
+### submodule 로그 필터링
+git filter-branch
+
+
+# Git log
+### 출력 log 갯수 제한
+```
+git log -(n)
+git log -2 --pretty=oneline
+```
+
+### 특정 날짜 이전/이후 commit 만 조회
+```
+git log --since[after,until,before]
+git log --since="2017-01-29"
+```
+
+### 특정 author/commitor 의 commit 만 조회
+```
+git log --author[committer]
+git log --author=unknown
+```
+
+### 특정 경로(폴더or파일)의 변경사항에 대해서만 조회
+```
+git log -- [path1] [path2] ...
+git log -p -- ./w.txt ./v.txt ./work
+```
+
+
+# ISSUE 에러
 remote: Permission to seancraft79/DEV_Snippets.git denied to shleemr.
 -> git config credential.username 'seancraft79'
 -> 으로 적당한 username 넣어줘야 됨

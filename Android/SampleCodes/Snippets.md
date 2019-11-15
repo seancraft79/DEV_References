@@ -66,3 +66,12 @@ android {
 	   enabled = true
 	}
 ```
+
+### Android studio custom vm options
+```
+-Xms2048m
+-Xmx4096m
+-XX:MaxPermSize=1024m
+-XX:ReservedCodeCacheSize=768m
+-XX:+UseCompressedOops
+```

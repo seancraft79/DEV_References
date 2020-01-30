@@ -1,6 +1,6 @@
-# Fragment Navigation  
+# Navigation  
   
-[Link](https://developer.android.com/jetpack/androidx/releases/navigation)  
+[androidx.navigation](https://developer.android.com/jetpack/androidx/releases/navigation)  
   
 ### app build.gradle
 ```

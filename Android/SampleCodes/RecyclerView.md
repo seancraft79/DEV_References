@@ -221,3 +221,58 @@
 		// refreshing recycler view
 		mAlertAdapter.notifyDataSetChanged();
 ```
+
+### Add click lister & Last item scrolled listener
+```
+	public class RecyclerAdapter extends RecyclerView.Adapter<ListViewHolder> {
+
+			private CallBack<Item> listener;
+
+			...
+
+			// 아이템 클릭 리스너
+			public void setOnItemClickLisener(CallBack<Item> cb){
+				this.listener = cb;
+			}
+
+			// 마지막 아이템 리스너
+			public void setLastItemScrollListener(LastItemCallback cb) {
+				this.listItemCallback = cb;
+			}
+
+			...
+
+			@Override
+			public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+				final Item item = items.get(position);
+
+				// ViewHolder 의 bind 에 listener 를 전달
+				holder.bind(item, listener);
+
+				// 마지막 아이템 보이는지 여부
+				if(position >= this.items.size() - 1) {
+					if(listItemCallback != null) listItemCallback.onLastItemVisible(position);
+				}
+			}
+
+			...
+		}
+
+		public static class ListViewHolder extends RecyclerView.ViewHolder {
+
+			...
+
+			public ListViewHolder(@NonNull View itemView) {
+				super(itemView);
+				
+				...
+			}
+
+			public void bind(final Item item, final CallBack<Item> listener) {
+				...
+
+				// itemView 에 리스너 등록
+				itemView.setOnClickListener(v -> listener.onResult(item));
+			}
+		}
+```

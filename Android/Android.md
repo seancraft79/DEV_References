@@ -3,6 +3,8 @@
 ### Links
 [Google Codelab](https://codelabs.developers.google.com/)  
 
+[AndroidX versions](https://developer.android.com/jetpack/androidx/versions)  
+
 [Developing Android Apps with Kotlin - Udacity](https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012)  
 
 [Jetpack](https://developer.android.com/jetpack/)  

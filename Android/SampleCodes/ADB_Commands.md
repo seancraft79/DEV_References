@@ -1,114 +1,436 @@
 
-# ADB Commands
+[adb-cheatsheet](https://www.automatetheplanet.com/adb-cheat-sheet/)  
 
-## Options
-```
--b <buffer>	보기 위한 대체 로그 버퍼를 로드합니다(예: events 또는 radio). main, system 및 crash 버퍼 세트가 기본적으로 사용됩니다. 대체 로그 버퍼 보기를 참조하세요.
--c, --clear	선택한 버퍼를 지우고(플러시하고) 종료합니다. 기본 버퍼 세트는 main, system 및 crash입니다. 모든 버퍼를 지우려면 -b all -c를 사용합니다.
--e <expr>, --regex=<expr>	로그 메시지가 <expr>과 일치하는 줄만 출력합니다. 여기서 <expr>은 정규 표현식입니다.
--m <count>, --max-count=<count>	<count>개 줄을 출력한 후 종료합니다. --regex와의 페어링이 필요하지만 자체적으로도 작동합니다.
---print	--regex 및 --max-count와 페어링하면 콘텐츠가 정규 표현식을 우회할 수 있지만, 여전히 올바른 일치 숫자에서 중지합니다.
--d	로그를 화면에 덤프하고 종료합니다.
--f <filename>	로그 메시지 출력을 <filename>에 씁니다. 기본값은 stdout입니다.
--g, --buffer-size	지정된 로그 버퍼의 크기를 출력하고 종료합니다.
--n <count>	순환되는 로그의 최대 수를 <count>로 설정합니다. 기본값은 4입니다. -r 옵션이 필요합니다.
--r <kbytes>	출력의 <kbytes>마다 로그 파일을 순환시킵니다. 기본값은 16입니다. -f 옵션이 필요합니다.
--s	filterspec '*:S'와 동일하며 콘텐츠를 추가하는 filterspec 목록 앞에 두기 위해 사용합니다.
--v <format>	로그 메시지의 출력 형식을 설정합니다. 기본값은 threadtime 형식입니다. 지원되는 형식의 목록은 로그 출력 형식 제어를 참조하세요.
--D, --dividers	각 로그 버퍼 간의 구분선을 출력합니다.
--c	전체 로그를 플러시하고(지우고) 종료합니다.
--t <count>	가장 최근의 줄 수만 출력합니다. 이 옵션은 -d 기능을 포함합니다.
--t '<time>'	지정된 시간 이후 가장 최근의 줄을 출력합니다. 이 옵션은 -d 기능을 포함합니다. 공백이 있는 매개변수에 따옴표를 사용하는 방법에 관한 자세한 내용은 -P 옵션을 참조하세요.
+adb help // List all comands
 
-adb logcat -t '01-26 20:52:41.820'
+== Adb Server
+adb kill-server
+adb start-server 
 
--T <count>	지정된 시간 이후 가장 최근의 줄 수를 출력합니다. 이 옵션은 -d 기능을 포함하지 않습니다.
--T '<time>'	지정된 시간 이후 가장 최근의 줄을 출력합니다. 이 옵션은 -d 기능을 포함하지 않습니다. 공백이 있는 매개변수에 따옴표를 사용하는 방법에 관한 자세한 내용은 -P 옵션을 참조하세요.
+== Adb Reboot
+adb reboot
+adb reboot recovery 
+adb reboot-bootloader
+adb root //restarts adb with root permissions
 
-adb logcat -t '01-26 20:52:41.820'
+== Shell
+adb shell    // Open or run commands in a terminal on the host Android device.
 
--L, -last	마지막 재부팅 전에 로그를 덤프합니다.
--B, --binary	로그를 바이너리로 출력합니다.
--S, --statistics	로그 스패머를 식별하고 타겟팅할 수 있도록 통계를 출력에 포함합니다.
--G <size>	로그 링 버퍼의 크기를 설정합니다. K 또는 M을 끝에 추가하여 킬로바이트나 메가바이트를 표시합니다.
--p, --prune	현재의 허용 목록과 차단 목록을 출력하고(읽고) 다음과 같이 인수를 사용하지 않습니다.
+== Devices
+adb usb
+adb devices   //show devices attached
+adb devices -l //devices (product/model)
+adb connect ip_address_of_device
 
-    adb logcat -p
-    
+== Get device android version
+adb shell getprop ro.build.version.release 
 
--P '<list> ...'
---prune '<list> ...' -P '<white_and_black_list>'	허용 목록과 차단 목록을 작성(설정)하여 특정 목적을 위한 로깅 콘텐츠를 조정합니다. <white> 및 ~<black> 목록 항목의 혼합된 콘텐츠를 제공합니다. 여기서 <white> 또는 <black>은 UID, UID/PID 또는 /PID일 수 있습니다. logcat 통계(logcat -S)의 지침에 따라 다음과 같은 목적으로 허용 목록과 차단 목록을 조정할 수 있습니다.
-UID 선택을 통해 특정 로깅 콘텐츠에 가장 긴 수명을 제공합니다.
-차단 목록 who(UID) 또는 what(PID)은 logspan을 늘리기 위해 이러한 리소스를 사용합니다. 그러면 진단 중인 문제를 더 잘 볼 수 있습니다.
-기본적으로 로깅 시스템은 로그 통계에서 최악의 위반자를 자동으로 차단 목록에 추가하여 새로운 로그 메시지를 위한 공간을 동적으로 만듭니다. 휴리스틱이 고갈되면 시스템은 가장 오래된 항목을 잘라내어 새 메시지를 위한 공간은 만듭니다.
+== LogCat
+adb logcat
+adb logcat -c // clear // The parameter -c will clear the current logs on the device.
+adb logcat -d > [path_to_file] // Save the logcat output to a file on the local system.
+adb bugreport > [path_to_file] // Will dump the whole device information like dumpstate, dumpsys and logcat output.
 
-허용 목록을 추가하면 AID(Android Identification Number)가 보호되어 프로세스의 AID 및 GID가 위반자로 선언되는 것을 방지할 수 있으며, 차단 목록을 추가하면 최악의 위반자로 간주되기 전에 공간을 확보할 수 있습니다. 잘라내기를 얼마나 적극적으로 할지 선택할 수 있습니다. 또한 각 로그 버퍼의 가장 오래된 항목에서만 콘텐츠를 삭제하도록 잘라내기를 해제할 수도 있습니다.
+== Files
+adb push [source] [destination]    // Copy files from your computer to your phone.
+adb pull [device file location] [local file location] // Copy files from your phone to your computer.
 
-따옴표
+== App install
+adb -e install path/to/app.apk
 
-adb logcat은 따옴표를 유지하지 않으므로 허용 목록과 차단 목록을 지정하기 위한 구문은 다음과 같습니다.
+-d                        - directs command to the only connected USB device...
+-e                        - directs command to the only running emulator...
+-s <serial number>        ...
+-p <product name or path> ...
+The flag you decide to use has to come before the actual adb command:
+
+adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X install -r com.myAppPackage // Install the given app on all connected devices.
+
+== Uninstalling app from device
+adb uninstall com.myAppPackage
+adb uninstall <app .apk name>
+adb uninstall -k <app .apk name> -> "Uninstall .apk withour deleting data"
+
+adb shell pm uninstall com.example.MyApp
+adb shell pm clear [package] // Deletes all data associated with a package.
+
+adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X uninstall com.myAppPackage //Uninstall the given app from all connected devices
+
+== Update app
+adb install -r yourApp.apk  //  -r means re-install the app and keep its data on the device.
+adb install –k <.apk file path on computer> 
+
+== Home button
+adb shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN
+
+== Activity Manager
+adb shell am start -a android.intent.action.VIEW
+adb shell am broadcast -a 'my_action'
+
+adb shell am start -a android.intent.action.CALL -d tel:+972527300294 // Make a call
+
+// Open send sms screen with phone number and the message:
+adb shell am start -a android.intent.action.SENDTO -d sms:+972527300294   --es  sms_body "Test --ez exit_on_sent false
+
+// Reset permissions
+adb shell pm reset-permissions -p your.app.package 
+adb shell pm grant [packageName] [ Permission]  // Grant a permission to an app. 
+adb shell pm revoke [packageName] [ Permission]   // Revoke a permission from an app.
 
 
-    $ adb logcat -P '"<white_and_blacklist>"'
+// Emulate device
+adb shell wm size 2048x1536
+adb shell wm density 288
+// And reset to default
+adb shell wm size reset
+adb shell wm density reset
 
-    or
+== Print text
+adb shell input text 'Wow, it so cool feature'
 
-    adb shell
-    $ logcat -P '<white_and_blacklist>'
-    
+== Screenshot
+adb shell screencap -p /sdcard/screenshot.png
 
-다음 예제는 PID 32676 및 UID 675로 허용 목록을 지정하고, PID 32677 및 UID 897로 차단 목록을 지정합니다. 더 빠른 잘라내기를 위해 차단 목록의 PID 32677에는 가중치가 적용됩니다.
+$ adb shell
+shell@ $ screencap /sdcard/screen.png
+shell@ $ exit
+$ adb pull /sdcard/screen.png
+
+---
+adb shell screenrecord /sdcard/NotAbleToLogin.mp4
+
+$ adb shell
+shell@ $ screenrecord --verbose /sdcard/demo.mp4
+(press Control + C to stop)
+shell@ $ exit
+$ adb pull /sdcard/demo.mp4
+
+== Key event
+adb shell input keyevent 3 // Home btn
+adb shell input keyevent 4 // Back btn
+adb shell input keyevent 5 // Call
+adb shell input keyevent 6 // End call
+adb shell input keyevent 26  // Turn Android device ON and OFF. It will toggle device to on/off status.
+adb shell input keyevent 27 // Camera
+adb shell input keyevent 64 // Open browser
+adb shell input keyevent 66 // Enter
+adb shell input keyevent 67 // Delete (backspace)
+adb shell input keyevent 207 // Contacts
+adb shell input keyevent 220 / 221 // Brightness down/up
+adb shell input keyevent 277 / 278 /279 // Cut/Copy/Paste
+
+0 -->  "KEYCODE_0" 
+1 -->  "KEYCODE_SOFT_LEFT" 
+2 -->  "KEYCODE_SOFT_RIGHT" 
+3 -->  "KEYCODE_HOME" 
+4 -->  "KEYCODE_BACK" 
+5 -->  "KEYCODE_CALL" 
+6 -->  "KEYCODE_ENDCALL" 
+7 -->  "KEYCODE_0" 
+8 -->  "KEYCODE_1" 
+9 -->  "KEYCODE_2" 
+10 -->  "KEYCODE_3" 
+11 -->  "KEYCODE_4" 
+12 -->  "KEYCODE_5" 
+13 -->  "KEYCODE_6" 
+14 -->  "KEYCODE_7" 
+15 -->  "KEYCODE_8" 
+16 -->  "KEYCODE_9" 
+17 -->  "KEYCODE_STAR" 
+18 -->  "KEYCODE_POUND" 
+19 -->  "KEYCODE_DPAD_UP" 
+20 -->  "KEYCODE_DPAD_DOWN" 
+21 -->  "KEYCODE_DPAD_LEFT" 
+22 -->  "KEYCODE_DPAD_RIGHT" 
+23 -->  "KEYCODE_DPAD_CENTER" 
+24 -->  "KEYCODE_VOLUME_UP" 
+25 -->  "KEYCODE_VOLUME_DOWN" 
+26 -->  "KEYCODE_POWER" 
+27 -->  "KEYCODE_CAMERA" 
+28 -->  "KEYCODE_CLEAR" 
+29 -->  "KEYCODE_A" 
+30 -->  "KEYCODE_B" 
+31 -->  "KEYCODE_C" 
+32 -->  "KEYCODE_D" 
+33 -->  "KEYCODE_E" 
+34 -->  "KEYCODE_F" 
+35 -->  "KEYCODE_G" 
+36 -->  "KEYCODE_H" 
+37 -->  "KEYCODE_I" 
+38 -->  "KEYCODE_J" 
+39 -->  "KEYCODE_K" 
+40 -->  "KEYCODE_L" 
+41 -->  "KEYCODE_M" 
+42 -->  "KEYCODE_N" 
+43 -->  "KEYCODE_O" 
+44 -->  "KEYCODE_P" 
+45 -->  "KEYCODE_Q" 
+46 -->  "KEYCODE_R" 
+47 -->  "KEYCODE_S" 
+48 -->  "KEYCODE_T" 
+49 -->  "KEYCODE_U" 
+50 -->  "KEYCODE_V" 
+51 -->  "KEYCODE_W" 
+52 -->  "KEYCODE_X" 
+53 -->  "KEYCODE_Y" 
+54 -->  "KEYCODE_Z" 
+55 -->  "KEYCODE_COMMA" 
+56 -->  "KEYCODE_PERIOD" 
+57 -->  "KEYCODE_ALT_LEFT" 
+58 -->  "KEYCODE_ALT_RIGHT" 
+59 -->  "KEYCODE_SHIFT_LEFT" 
+60 -->  "KEYCODE_SHIFT_RIGHT" 
+61 -->  "KEYCODE_TAB" 
+62 -->  "KEYCODE_SPACE" 
+63 -->  "KEYCODE_SYM" 
+64 -->  "KEYCODE_EXPLORER" 
+65 -->  "KEYCODE_ENVELOPE" 
+66 -->  "KEYCODE_ENTER" 
+67 -->  "KEYCODE_DEL" 
+68 -->  "KEYCODE_GRAVE" 
+69 -->  "KEYCODE_MINUS" 
+70 -->  "KEYCODE_EQUALS" 
+71 -->  "KEYCODE_LEFT_BRACKET" 
+72 -->  "KEYCODE_RIGHT_BRACKET" 
+73 -->  "KEYCODE_BACKSLASH" 
+74 -->  "KEYCODE_SEMICOLON" 
+75 -->  "KEYCODE_APOSTROPHE" 
+76 -->  "KEYCODE_SLASH" 
+77 -->  "KEYCODE_AT" 
+78 -->  "KEYCODE_NUM" 
+79 -->  "KEYCODE_HEADSETHOOK" 
+80 -->  "KEYCODE_FOCUS" 
+81 -->  "KEYCODE_PLUS" 
+82 -->  "KEYCODE_MENU" 
+83 -->  "KEYCODE_NOTIFICATION" 
+84 -->  "KEYCODE_SEARCH" 
+85 -->  "KEYCODE_MEDIA_PLAY_PAUSE"
+86 -->  "KEYCODE_MEDIA_STOP"
+87 -->  "KEYCODE_MEDIA_NEXT"
+88 -->  "KEYCODE_MEDIA_PREVIOUS"
+89 -->  "KEYCODE_MEDIA_REWIND"
+90 -->  "KEYCODE_MEDIA_FAST_FORWARD"
+91 -->  "KEYCODE_MUTE"
+92 -->  "KEYCODE_PAGE_UP"
+93 -->  "KEYCODE_PAGE_DOWN"
+94 -->  "KEYCODE_PICTSYMBOLS"
+...
+122 -->  "KEYCODE_MOVE_HOME"
+123 -->  "KEYCODE_MOVE_END"
+// https://developer.android.com/reference/android/view/KeyEvent.html
 
 
-    adb logcat -P '"/32676 675 ~/32677 897"'
-    
+== ShPref
+# replace org.example.app with your application id
 
-사용할 수 있는 다른 차단 목록 및 허용 목록 명령어 변형은 다음과 같습니다.
+# Add a value to default shared preferences.
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key key_name --es value "hello world!"'
+
+# Remove a value to default shared preferences.
+adb shell 'am broadcast -a org.example.app.sp.REMOVE --es key key_name'
+
+# Clear all default shared preferences.
+adb shell 'am broadcast -a org.example.app.sp.CLEAR --es key key_name'
+
+# It's also possible to specify shared preferences file.
+adb shell 'am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10'
+
+# Data types
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key string --es value "hello world!"'
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true'
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key float --ef value 3.14159'
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015'
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807'
+
+# Restart application process after making changes
+adb shell 'am broadcast -a org.example.app.sp.CLEAR --ez restart true'
+
+== Monkey
+adb shell monkey -p com.myAppPackage -v 10000 -s 100 // monkey tool is generating 10.000 random events on the real device
+
+== Paths
+/data/data/<package>/databases (app databases)
+/data/data/<package>/shared_prefs/ (shared preferences)
+/data/app (apk installed by user)
+/system/app (pre-installed APK files)
+/mmt/asec (encrypted apps) (App2SD)
+/mmt/emmc (internal SD Card)
+/mmt/adcard (external/Internal SD Card)
+/mmt/adcard/external_sd (external SD Card)
+
+adb shell ls (list directory contents)
+adb shell ls -s (print size of each file)
+adb shell ls -R (list subdirectories recursively)
+
+== Device onformation
+adb get-statе (print device state)
+adb get-serialno (get the serial number)
+adb shell dumpsys iphonesybinfo (get the IMEI)
+adb shell netstat (list TCP connectivity)
+adb shell pwd (print current working directory)
+adb shell dumpsys battery (battery status)
+adb shell pm list features (list phone features)
+adb shell service list (list all services)
+adb shell dumpsys activity <package>/<activity> (activity info)
+adb shell ps (print process status)
+adb shell wm size (displays the current screen resolution)
+dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp' (print current app's opened activity)
+
+== Package info
+adb shell list packages (list package names)
+adb shell list packages -r (list package name + path to apks)
+adb shell list packages -3 (list third party package names)
+adb shell list packages -s (list only system packages)
+adb shell list packages -u (list package names + uninstalled)
+adb shell dumpsys package packages (list info on all apps)
+adb shell dump <name> (list info on one package)
+adb shell path <package> (path to the apk file)
+
+==Configure Settings Commands
+adb shell dumpsys battery set level <n> (change the level from 0 to 100)
+adb shell dumpsys battery set status<n> (change the level to unknown, charging, discharging, not charging or full)
+adb shell dumpsys battery reset (reset the battery)
+adb shell dumpsys battery set usb <n> (change the status of USB connection. ON or OFF)
+adb shell wm size WxH (sets the resolution to WxH)
 
 
-    ~! worst uid blacklist
-    ~1000/! worst pid in system (1000)
-    
+== Device Related Commands
+adb reboot-recovery (reboot device into recovery mode)
+adb reboot fastboot (reboot device into recovery mode)
+adb shell screencap -p "/path/to/screenshot.png" (capture screenshot)
+adb shell screenrecord "/path/to/record.mp4" (record device screen)
+adb backup -apk -all -f backup.ab (backup settings and apps)
+adb backup -apk -shared -all -f backup.ab (backup settings, apps and shared storage)
+adb backup -apk -nosystem -all -f backup.ab (backup only non-system apps)
+adb restore backup.ab (restore a previous backup)
+adb shell am start|startservice|broadcast <INTENT>[<COMPONENT>]
+-a <ACTION> e.g. android.intent.action.VIEW
+-c <CATEGORY> e.g. android.intent.category.LAUNCHER (start activity intent)
 
---pid=<pid> ...	지정된 PID의 로그만 출력합니다.
---wrap	두 시간 동안 절전 모드일 때 또는 버퍼가 래핑하려고 할 때 중 하나가 먼저 발생하는 경우 about-to-wrap wakeup을 제공하여 폴링의 효율성을 높입니다.
-```
+adb shell am start -a android.intent.action.VIEW -d URL (open URL)
+adb shell am start -t image/* -a android.intent.action.VIEW (opens gallery)
 
-## Filters
-```
-V: Verbose(가장 낮은 우선순위)
-D: Debug
-I: Info
-W: Warning
-E: Error
-F: Fatal
-S: Silent(가장 높은 순위, 이 경우 아무것도 출력되지 않음)
-```
+== Logs
+adb logcat [options] [filter] [filter] (view device log)
+adb bugreport (print bug reports)
 
-### APK 설치
-```
-adb install -r <app.apk>
-```
+== Other
+adb backup // Create a full backup of your phone and save to the computer.
+adb restore // Restore a backup to your phone.
+adb sideload //  Push and flash custom ROMs and zips from your computer.
 
-### Pull file
-```
-adb pull /sdcard/BUS/BUS.db .
-```
+fastboot devices
+// Check connection and get basic information about devices connected to the computer.
+// This is essentially the same command as adb devices from earlier. 
+//However, it works in the bootloader, which ADB does not. Handy for ensuring that you have properly established a connection.
 
-### Push file
-```
-adb push BUS.db /sdcard/BUS/
-```
 
-### 실행중인 프로세스 죽이기
-```
-busybox ps -ef | grep <프로세스명>
-// - PID 확인후 kill
-kill -9 <PID>
-```
+--------------------------------------------------------------------------------
+Shared Preferences
 
-### Get logcat log file
-```
-adb logcat > logcat.txt
-adb logcat -v threadtime > logcat.txt
-```
+# replace org.example.app with your application id
+
+# Add a value to default shared preferences.
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key key_name --es value "hello world!"'
+
+# Remove a value to default shared preferences.
+adb shell 'am broadcast -a org.example.app.sp.REMOVE --es key key_name'
+
+# Clear all default shared preferences.
+adb shell 'am broadcast -a org.example.app.sp.CLEAR --es key key_name'
+
+# It's also possible to specify shared preferences file.
+adb shell 'am broadcast -a org.example.app.sp.PUT --es name Game --es key level --ei value 10'
+
+# Data types
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key string --es value "hello world!"'
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key boolean --ez value true'
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key float --ef value 3.14159'
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key int --ei value 2015'
+adb shell 'am broadcast -a org.example.app.sp.PUT --es key long --el value 9223372036854775807'
+
+# Restart application process after making changes
+adb shell 'am broadcast -a org.example.app.sp.CLEAR --ez restart true'
+--------------------------------------------------------------------------------
+
+=== Few bash snippets ===
+@Source (https://jonfhancock.com/bash-your-way-to-better-android-development-1169bc3e0424)
+
+=== Using tail -n
+//Use tail to remove the first line. Actually two lines. The first one is just a newline. The second is “List of devices attached.”
+$ adb devices | tail -n +2
+
+=== Using cut -sf
+// Cut the last word and any white space off the end of each line.
+$ adb devices | tail -n +2 | cut -sf -1
+
+=== Using xargs -I
+// Given the -I option, xargs will perform an action for each line of text that we feed into it.
+// We can give the line a variable name to use in commands that xargs can execute.
+$ adb devices | tail -n +2 | cut -sf -1 | xargs -I X echo X aw yiss
+
+=== Three options below together
+// Will print android version of all connected devices
+adb devices | tail -n +2 | cut -sf -1 | xargs -I X adb -s X shell getprop ro.build.version.release  
+
+=== Using alias
+-- Example 1 
+alias tellMeMore=echo
+tellMeMore "hi there"
+Output => hi there
+-- Example 2
+// Define alias
+alias apkinstall="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1"
+// And you can use it later 
+apkinstall ~/Downloads/MyAppRelease.apk  // Install an apk on all devices
+-- Example 3
+alias rmapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1"
+rmapp com.example.myapp // Uninstall a package from all devices
+-- Example 4
+alias clearapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1"
+clearapp com.example.myapp  // Clear data on all devices (leave installed)
+-- Example 5
+alias startintent="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1"
+startintent https://twitter.com/JonFHancock // Launch a deep link on all devices
+
+
+Setting up your .bash_profile
+Finally, to make this all reusable even after rebooting your computer (aliases only last through the current session), we have to add these to your .bash_profile. You might or might not already have a .bash_profile, so let’s make sure we append to it rather than overwriting it. Just open a terminal, and run the following command
+
+touch .bash_profile && open .bash_profile
+
+This will create it if it doesn’t already exist, and open it in a text editor either way. Now just copy and paste all of the aliases into it, save, and close.
+
+alias startintent="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1"
+alias apkinstall="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1"
+alias rmapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1"
+alias clearapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1"
+
+
+--------------------------------------------------------------------------------
+
+
+
+// Shut down
+adb shell su -c 'svc power shutdown'
+
+// Run shell script
+adb shell sh /sdcard/BUS/safe_shutdown.sh
+
+// On / Off
+adb shell input keyevent 26
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,7 +10,7 @@
 ### Project structure(Ctrl+Alt+Shift+S) 세팅
 ** Debug Configuration -> Deployment 탭 -> Application context 를 빈공간으로 설정함  
 
-### SNV 세팅
+### SVN 세팅
 [IntelliJ - SVN 연동 방법](https://goddaehee.tistory.com/196)  
 
 [Subversion command line tolls 다운로드 링크](https://www.visualsvn.com/downloads/)  

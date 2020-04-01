@@ -1,7 +1,7 @@
 # SPRING Code snippets
 
 
-### request
+### jsp : getParameter from request
 ```
     <%
         String errorMsg = "";

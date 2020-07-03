@@ -60,7 +60,7 @@ adb install -r yourApp.apk  //  -r means re-install the app and keep its data on
 adb install –k <.apk file path on computer> 
 
 ### Kill app
-adb shell am force-stop <package>
+adb shell am force-stop <package>  
 adb shell ps | grep <package> | awk '{print $2}' | xargs adb shell kill
 
 ### Home button

@@ -51,7 +51,7 @@ adb uninstall <app .apk name>
 adb uninstall -k <app .apk name> -> "Uninstall .apk withour deleting data"  
 
 adb shell pm uninstall com.example.MyApp  
-adb shell pm clear [package] // Deletes all data associated with a package.  
+adb shell pm clear <package_name> // Deletes all data associated with a package.  
 
 //Uninstall the given app from all connected devices  
 adb devices | tail -n +2 | cut -sf 1 | xargs -IX adb -s X uninstall com.myAppPackage   
@@ -61,8 +61,8 @@ adb install -r yourApp.apk  //  -r means re-install the app and keep its data on
 adb install –k <.apk file path on computer>   
 
 ### Kill app
-adb shell am force-stop <package>   
-adb shell ps | grep <package> | awk '{print $2}' | xargs adb shell kill  
+adb shell am force-stop <package_name>   
+adb shell ps | grep <package_name> | awk '{print $2}' | xargs adb shell kill  
 
 ### Home button
 adb shell am start -W -c android.intent.category.HOME -a android.intent.action.MAIN  
@@ -77,9 +77,9 @@ adb shell am start -a android.intent.action.CALL -d tel:+972527300294 // Make a 
 adb shell am start -a android.intent.action.SENDTO -d sms:+972527300294   --es  sms_body "Test --ez  exit_on_sent false  
   
 // Reset permissions  
-adb shell pm reset-permissions -p your.app.package   
-adb shell pm grant [packageName] [ Permission]  // Grant a permission to an app.  
-adb shell pm revoke [packageName] [ Permission]   // Revoke a permission from an app.  
+adb shell pm reset-permissions -p <package_name>
+adb shell pm grant <package_name> [ Permission]  // Grant a permission to an app.  
+adb shell pm revoke <package_name> [ Permission]   // Revoke a permission from an app.  
   
   
 // Emulate device  
@@ -230,8 +230,8 @@ adb shell monkey -p com.myAppPackage -v 10000 -s 100 // monkey tool is generatin
 on the real device  
 
 ### Paths
-/data/data/<package>/databases (app databases)  
-/data/data/<package>/shared_prefs/ (shared preferences)  
+/data/data/<package_name>/databases (app databases)  
+/data/data/<package_name>/shared_prefs/ (shared preferences)  
 /data/app (apk installed by user)  
 /system/app (pre-installed APK files)  
 /mmt/asec (encrypted apps) (App2SD)  
@@ -252,7 +252,7 @@ adb shell pwd (print current working directory)
 adb shell dumpsys battery (battery status)  
 adb shell pm list features (list phone features)  
 adb shell service list (list all services)  
-adb shell dumpsys activity <package>/<activity> (activity info)  
+adb shell dumpsys activity <package_name>/<activity> (activity info)  
 adb shell ps (print process status)  
 adb shell wm size (displays the current screen resolution)  
 dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp' (print current app's opened activity)  
@@ -265,7 +265,7 @@ adb shell list packages -s (list only system packages)
 adb shell list packages -u (list package names + uninstalled)  
 adb shell dumpsys package packages (list info on all apps)  
 adb shell dump <name> (list info on one package)  
-adb shell path <package> (path to the apk file)  
+adb shell path <package_name> (path to the apk file)  
   
 ### Configure Settings Commands
 adb shell dumpsys battery set level <n> (change the level from 0 to 100)  
@@ -305,26 +305,26 @@ fastboot devices
 ### Shared Preferences
 
 ##### Add a value to default shared preferences.
-adb shell 'am broadcast -a <package>.sp.PUT --es key key_name --es value "hello world!"' 
+adb shell 'am broadcast -a <package_name>.sp.PUT --es key key_name --es value "hello world!"' 
 
 ##### Remove a value to default shared preferences.
-adb shell 'am broadcast -a <package>.sp.REMOVE --es key key_name'  
+adb shell 'am broadcast -a <package_name>.sp.REMOVE --es key key_name'  
 
 ##### Clear all default shared preferences.
-adb shell 'am broadcast -a <package>.sp.CLEAR --es key key_name'  
+adb shell 'am broadcast -a <package_name>.sp.CLEAR --es key key_name'  
 
 ##### It's also possible to specify shared preferences file.
-adb shell 'am broadcast -a <package>.sp.PUT --es name Game --es key level --ei value 10'  
+adb shell 'am broadcast -a <package_name>.sp.PUT --es name Game --es key level --ei value 10'  
 
 ##### Data types
-adb shell 'am broadcast -a <package>.sp.PUT --es key string --es value "hello world!"' 
-adb shell 'am broadcast -a <package>.sp.PUT --es key boolean --ez value true'  
-adb shell 'am broadcast -a <package>.sp.PUT --es key float --ef value 3.14159'  
-adb shell 'am broadcast -a <package>.sp.PUT --es key int --ei value 2015'  
-adb shell 'am broadcast -a <package>.sp.PUT --es key long --el value 9223372036854775807'  
+adb shell 'am broadcast -a <package_name>.sp.PUT --es key string --es value "hello world!"' 
+adb shell 'am broadcast -a <package_name>.sp.PUT --es key boolean --ez value true'  
+adb shell 'am broadcast -a <package_name>.sp.PUT --es key float --ef value 3.14159'  
+adb shell 'am broadcast -a <package_name>.sp.PUT --es key int --ei value 2015'  
+adb shell 'am broadcast -a <package_name>.sp.PUT --es key long --el value 9223372036854775807'  
   
 ##### Restart application process after making changes
-adb shell 'am broadcast -a <package>.sp.CLEAR --ez restart true'  
+adb shell 'am broadcast -a <package_name>.sp.CLEAR --ez restart true'  
 
 
 # [Few bash snippets](https://jonfhancock.com/bash-your-way-to-better-android-development-1169bc3e0424)
@@ -347,39 +347,39 @@ $ adb devices | tail -n +2 | cut -sf -1 | xargs -I X echo X aw yiss
 adb devices | tail -n +2 | cut -sf -1 | xargs -I X adb -s X shell getprop ro.build.version.release    
 
 ### Using alias
--- Example 1 
-alias tellMeMore=echo
-tellMeMore "hi there"
-Output => hi there
--- Example 2
-// Define alias
-alias apkinstall="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1"
-// And you can use it later 
-apkinstall ~/Downloads/MyAppRelease.apk  // Install an apk on all devices
--- Example 3
-alias rmapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1"
-rmapp com.example.myapp // Uninstall a package from all devices
--- Example 4
-alias clearapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1"
-clearapp com.example.myapp  // Clear data on all devices (leave installed)
--- Example 5
-alias startintent="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1"
-startintent https://twitter.com/JonFHancock // Launch a deep link on all devices
-
-
-Setting up your .bash_profile
-Finally, to make this all reusable even after rebooting your computer (aliases only last through the current session), we have to add these to your .bash_profile. You might or might not already have a .bash_profile, so let’s make sure we append to it rather than overwriting it. Just open a terminal, and run the following command
-
-touch .bash_profile && open .bash_profile
-
-This will create it if it doesn’t already exist, and open it in a text editor either way. Now just copy and paste all of the aliases into it, save, and close.
-
-alias startintent="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1"
-alias apkinstall="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1"
-alias rmapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1"
-alias clearapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1"
-
-
+-- Example 1   
+alias tellMeMore=echo  
+tellMeMore "hi there"  
+Output => hi there  
+-- Example 2  
+// Define alias  
+alias apkinstall="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1"  
+// And you can use it later   
+apkinstall ~/Downloads/MyAppRelease.apk  // Install an apk on all devices  
+-- Example 3  
+alias rmapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1"  
+rmapp com.example.myapp // Uninstall a package from all devices  
+-- Example 4  
+alias clearapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1"  
+clearapp com.example.myapp  // Clear data on all devices (leave installed)  
+-- Example 5  
+alias startintent="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1"  
+startintent https://twitter.com/JonFHancock // Launch a deep link on all devices  
+  
+  
+Setting up your .bash_profile  
+Finally, to make this all reusable even after rebooting your computer (aliases only last through the current session), we have to add these to your .bash_profile. You might or might not already have a .bash_profile, so let’s make sure we append to it rather than overwriting it. Just open a terminal, and run the following command  
+  
+touch .bash_profile && open .bash_profile  
+  
+This will create it if it doesn’t already exist, and open it in a text editor either way. Now just copy and paste all of the aliases into it, save, and close.  
+  
+alias startintent="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell am start $1"  
+alias apkinstall="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X install -r $1"  
+alias rmapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X uninstall $1"  
+alias clearapp="adb devices | tail -n +2 | cut -sf 1 | xargs -I X adb -s X shell pm clear $1"  
+  
+  
 --------------------------------------------------------------------------------
 
 

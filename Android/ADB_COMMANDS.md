@@ -1,4 +1,81 @@
 
+adb shell pm clear com.yourapp.package
+
+* Kill app
+adb shell am force-stop <package_name>
+
+* Start app
+adb shell am start -n com.package.name/com.package.name.ActivityName
+
+* 스크린샷
+adb exec-out screencap -p > screen.png
+
+* Set status, nav bar
+HIDE STATUS BAR: 
+	adb shell settings put global policy_control immersive.status=*
+HIDE NAVIGATION BAR: 
+	adb shell settings put global policy_control immersive.navigation=*
+HIDE BOTH BARS 
+	adb shell settings put global policy_control immersive.full=*
+RESET TO NORMAL: 
+	adb shell settings put global policy_control null*
+
+
+
+
+* 소유자 앱 활성화
+adb shell dpm set-device-owner net.sjava.examples.kiosk/.KioskDeviceAdminReceiver
+* 관리자 앱 비활성화
+adb shell dpm remove-active-admin net.sjava.examples.kiosk/.KioskDeviceAdminReceiver
+
+
+
+
+
+adb shell settings put global policy_control immersive.full=*
+
+adb shell cmd overlay enable com.android.internal.systemui.navbar.gestural
+adb shell cmd overlay disable com.android.internal.systemui.navbar.gestural
+
+
+
+
+* Version
+adb shell getprop ro.build.version.release 
+adb shell getprop ro.build.version.sdk 
+
+* Sdk version
+adb shell getprop | grep sdk
+[ro.build.version.sdk]: [22]
+
+* Language
+adb shell getprop | grep language
+[persist.sys.language]: [en]
+[ro.product.locale.language]: [en]
+
+* Boot complete ( device ready after reset)
+adb shell getprop | grep boot_completed
+[sys.boot_completed]: 1
+
+* Device model
+adb shell getprop | grep model
+[ro.product.model]: [Nexus 4]
+
+* Time zone
+adb shell getprop | grep timezone
+[persist.sys.timezone]: [Asia/China]
+
+* Serial number
+adb shell getprop | grep serialno
+[ro.boot.serialno]: [1234567]
+
+* Mac address
+adb shell cat /sys/class/net/wlan0/address
+adb shell cat /sys/class/net/eth0/address
+adb shell settings get secure bluetooth_address
+
+===================================================================================================================================
+
 [adb-cheatsheet](https://www.automatetheplanet.com/adb-cheat-sheet/)  
 
 adb help // List all comands  

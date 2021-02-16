@@ -1,4 +1,0 @@
-
-JSONPLACEHOLER
-
-https://jsonplaceholder.typicode.com/

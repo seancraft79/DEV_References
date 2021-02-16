@@ -1,0 +1,8 @@
+1. 패키지명 알아내기 위해 리스트
+adb shell pm list packages
+
+2. 알아낸 패키지명으로 path 파악
+adb shell pm path com.example.someapp
+
+3. 알아낸 path 에 있는 APK pull
+adb pull /data/app/com.example.someapp-2.apk path/to/desired/destination

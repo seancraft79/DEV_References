@@ -1,1 +1,0 @@
-keytool -exportcert -alias nytelkey -keystore C:\Unity\Knum\Android\iMathKnum.keystore | C:\OpenSSL-Win64\bin\openssl sha1 -binary | C:\OpenSSL-Win64\bin\openssl base64

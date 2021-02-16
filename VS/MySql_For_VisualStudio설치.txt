@@ -1,8 +1,0 @@
-
-
-
-MySql for Visual studio
-
-1. dev.mysql.com -> downloads -> windows탭 -> MySQL for Visual studio 에서 MSI 설치
-2. MySql Connectors -> Connector/NET 설치
-

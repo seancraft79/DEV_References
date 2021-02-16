@@ -1,0 +1,5 @@
+    //    private static int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
+    private static ExecutorService taskExecutor = Executors.newCachedThreadPool();
+    public static ExecutorService getTaskExecutor() {
+        return taskExecutor;
+    }
